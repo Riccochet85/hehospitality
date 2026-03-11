@@ -16,6 +16,7 @@ preview = false
 
 [observability]
 [observability.logs]
-enabled = true
+enabled = false
 invocation_logs = true
+
 
