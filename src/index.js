@@ -9,7 +9,7 @@ export default {
     // Prevent directory traversal
     key = key.split("/").filter(Boolean).join("/");
 
-    const object = await env.BRANDING_BUCKET.get(key);
+    const object = await env.picture.get(key);
     if (!object) {
       return new Response("Not found", { status: 404 });
     }
@@ -43,3 +43,4 @@ export default {
     });
   }
 };
+
