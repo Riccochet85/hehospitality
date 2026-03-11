@@ -8,10 +8,10 @@ export default {
       key = "HE_privacystatement.html";
     }
 
-    // Prevent directory traversal
+    // Clean path
     key = key.split("/").filter(Boolean).join("/");
 
-    // Use the binding name from wrangler.toml
+    // Fetch from R2 using the correct binding
     const object = await env.PICTURE.get(key);
     if (!object) {
       return new Response("Not found", { status: 404 });
@@ -36,7 +36,6 @@ export default {
     const ext = key.split(".").pop().toLowerCase();
     const contentType = mimeMap[ext] || "application/octet-stream";
 
-    // Cache policy: short for HTML, long for static assets
     const cacheControl =
       ext === "html"
         ? "public, max-age=300"
