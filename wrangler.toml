@@ -1,4 +1,4 @@
-name = "he-hospitality-assets"
+name = "hehospitality"
 main = "src/index.js"
 compatibility_date = "2026-01-01"
 
@@ -13,4 +13,5 @@ workers_dev = false
 binding = "picture"
 bucket_name = "branding"
 preview = false
+
 
