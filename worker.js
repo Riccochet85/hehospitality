@@ -4,10 +4,10 @@ export default {
     let key = url.pathname.replace(/^\/+/, ""); // remove leading slash
 
     // Default file if root is requested
-    if (key === "") key = "index.html";
+    if (key === "") key = "hehospitalityconsulting_privacystatement.html";
 
     // Try to fetch the object from R2
-    const object = await env.BRANDING_BUCKET.get(key);
+    const object = await env.PICTURE.get(key);
 
     if (!object) {
       return new Response("Not found", { status: 404 });
@@ -39,3 +39,4 @@ export default {
     });
   }
 };
+
