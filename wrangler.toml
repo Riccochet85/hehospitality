@@ -14,7 +14,7 @@ binding = "picture"
 bucket_name = "branding"
 
 [observability]
-enabled = false
+enabled = true
 head_sampling_rate = 1
 
 [observability.logs]
@@ -27,6 +27,7 @@ invocation_logs = true
 enabled = true
 persist = true
 head_sampling_rate = 1
+
 
 
 
