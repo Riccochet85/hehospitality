@@ -1,22 +1,22 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    let key = url.pathname.replace(/^\/+/, "");
 
-    // Default file at root of bucket
-    if (key === "" || key === "/") {
-      key = "HE_privacystatement.html";
+    // Only serve the file at the root URL
+    if (url.pathname !== "/") {
+      return new Response("Not found", { status: 404 });
     }
 
-    // Clean path
-    key = key.split("/").filter(Boolean).join("/");
+    // Always serve this file
+    const key = "HE_privacystatement.html";
 
     // Fetch from R2 using the correct binding
-    const object = await env.PICTURE.get(key);
+    const object = await env.picture.get(key);
     if (!object) {
       return new Response("Not found", { status: 404 });
     }
 
+    // Your full MIME map preserved exactly as you wrote it
     const mimeMap = {
       png: "image/png",
       jpg: "image/jpeg",
