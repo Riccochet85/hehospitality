@@ -12,7 +12,6 @@ workers_dev = false
 [[r2_buckets]]
 binding = "picture"
 bucket_name = "branding"
-preview = false
 
 [observability]
 enabled = false
@@ -28,6 +27,7 @@ invocation_logs = true
 enabled = false
 persist = true
 head_sampling_rate = 1
+
 
 
 
