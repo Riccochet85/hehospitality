@@ -3,18 +3,20 @@ export default {
     const url = new URL(request.url);
     let key = url.pathname.replace(/^\/+/, "");
 
-    // default document
-    if (key === "" || key === "/") key = "hehospitalityconsultation_privacystatement.html";
+    // Default file at root of bucket
+    if (key === "" || key === "/") {
+      key = "HE_privacystatement.html";
+    }
 
     // Prevent directory traversal
     key = key.split("/").filter(Boolean).join("/");
 
-    const object = await env.picture.get(key);
+    // Use the binding name from wrangler.toml
+    const object = await env.PICTURE.get(key);
     if (!object) {
       return new Response("Not found", { status: 404 });
     }
 
-    const ext = key.split(".").pop().toLowerCase();
     const mimeMap = {
       png: "image/png",
       jpg: "image/jpeg",
@@ -30,10 +32,15 @@ export default {
       json: "application/json",
       txt: "text/plain; charset=utf-8"
     };
+
+    const ext = key.split(".").pop().toLowerCase();
     const contentType = mimeMap[ext] || "application/octet-stream";
 
     // Cache policy: short for HTML, long for static assets
-    const cacheControl = ext === "html" ? "public, max-age=300" : "public, max-age=31536000, immutable";
+    const cacheControl =
+      ext === "html"
+        ? "public, max-age=300"
+        : "public, max-age=31536000, immutable";
 
     return new Response(object.body, {
       headers: {
@@ -43,4 +50,5 @@ export default {
     });
   }
 };
+
 
